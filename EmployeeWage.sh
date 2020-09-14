@@ -10,23 +10,25 @@ numWorkingDays=20;
 totalEmpHrs=0;
 totalWorkingDays=0;
 
+function getWorkingHours(){
+	case $1 in
+      $isFullTime)
+         workingHours=8
+         ;;
+      $isPartTime)
+         workingHours=4
+         ;;
+      *)
+         workingHours=0
+         ;;
+   esac
+	echo $workingHours
+}
 while [[ $totalEmpHrs -lt $maxHrsInMonth && $totalWorkingDays -lt $numWorkingDays ]]
 
 do
 	((totalWorkingDays++))
-	empCheck=$(( RANDOM % 3 ));
-	case $empCheck in
-		$isFullTime)
-			empHrs=8
-			;;
-		$isPartTime)
-			empHrs=4
-			;;
-		*)
-			empHrs=0
-			;;
-	esac
-
-	totalEmpHrs=$(($totalEmpHrs + $empHrs ));
+	workingHours="$( getWorkingHours $(( RANDOM % 3 )) )"
+	totalWorkHours=$(($totalWorkHours + $workingHours ));
 done
-totalSalary=$(($totalEmpHrs*$empRatePerHr));
+totalSalary=$(($totalWorkHours*$empRatePerHr));
